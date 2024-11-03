@@ -1,49 +1,66 @@
 <template>
-  <div class="card">
-    <Menubar :model="menuItems" />
+  <div class="container">
+    <Menubar :model="menuItems">
+      <template #start> Aria2 WebUI </template>
+      <template #end>
+        <div class="flex items-center gap-2">
+          <InputText placeholder="Search" type="text" class="w-32 sm:w-auto" />
+        </div>
+      </template>
+    </Menubar>
   </div>
+  <component :is="currComp"></component>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import Menubar from "primevue/menubar";
+import { useI18n } from "vue-i18n";
+import { PrimeIcons } from "@primevue/core/api";
+import { addUris, addTorrents } from "@/js/services/rpc/helpers.ts";
+const { t, locale } = useI18n();
+// compoenent to be rendered
+import GetUris from "@/components/GetUris.vue";
 
+const currComp = ref("");
 const menuItems = ref([
   {
     label: "Home",
     icon: "pi pi-fw pi-home",
-    link: "/",
+    route: "/",
   },
   {
-    label: "About",
-    link: "/about",
+    label: "Add",
+    route: "/add",
+    items: [
+      {
+        label: "By URIs",
+        icon: PrimeIcons.LINK,
+        command: () => {
+          currComp.value = GetUris;
+          //addUris();
+        },
+      },
+      {
+        label: "By Torrents",
+        command: () => {
+          addTorrents();
+        },
+      },
+    ],
   },
   {
     label: "Services",
-    link: "/services",
+    route: "/services",
     items: [
-      { label: "Web Development", link: "/services/web-development" },
-      { label: "App Development", link: "/services/app-development" },
-      { label: "SEO", link: "/services/seo" },
+      { label: "Web Development", route: "/services/web-development" },
+      { label: "App Development", route: "/services/app-development" },
+      { label: "SEO", route: "/services/seo" },
     ],
   },
   {
     label: "Contact",
-    link: "/contact",
+    route: "/contact",
   },
 ]);
-
-const showDropdown = (name: string) => {
-  const item = menuItems.value.find((item) => item.name === name);
-  if (item && item.submenu) {
-    item.value.showDropdown = true;
-  }
-};
-
-const hideDropdown = (name: string) => {
-  const item = menuItems.value.find((item) => item.name === name);
-  if (item && item.submenu) {
-    item.value.showDropdown = false;
-  }
-};
 </script>

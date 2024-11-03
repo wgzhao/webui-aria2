@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import Logo from './components/Logo.vue';
-import Main from './components/Main.vue';
-import NavBar from './components/NavBar.vue';
+import NavBar from "./components/NavBar.vue";
 </script>
 
 <template>
-<Logo />
-<NavBar />
+  <!-- <Logo /> -->
+  <NavBar />
 </template>
 
 <style>

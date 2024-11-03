@@ -1,8 +1,5 @@
-import angular from "angular";
 
-export default angular
-  .module("webui.services.settings", [])
-  .value("$fileSettings", {
+const settings = {
     // {{{ settings (for files)
     "all-proxy": {
       val: "",
@@ -814,19 +811,6 @@ export default angular
         "Specify the filename to which performance profile of the servers is saved. You can load saved data using --server-stat-if option. See Server Performance Profile subsection below for file format."
     }
     // }}}
-  })
-  .value("$globalExclude", ["checksum", "index-out", "out", "pause", "select-file"])
-  .value("$waitingExclude", [
-    "dry-run",
-    "metalink-base-uri",
-    "parameterized-uri",
-    "pause",
-    "piece-length"
-  ])
-  .value("$activeInclude", [
-    "bt-max-peers",
-    "bt-request-peer-speed-limit",
-    "bt-remove-unselected-file",
-    "max-download-limit",
-    "max-upload-limit"
-  ]).name;
+  }
+
+export default settings;
