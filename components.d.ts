@@ -14,5 +14,6 @@ declare module 'vue' {
     Logo: typeof import('./src/components/Logo.vue')['default']
     Main: typeof import('./src/components/Main.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    Toast: typeof import('primevue/toast')['default']
   }
 }

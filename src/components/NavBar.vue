@@ -8,12 +8,13 @@
         </div>
       </template>
     </Menubar>
+    <GetUris v-show="compsShow['GetUris']" :isVisible="true" />
+    <Toast />
   </div>
-  <component :is="currComp"></component>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, shallowRef } from "vue";
 import Menubar from "primevue/menubar";
 import { useI18n } from "vue-i18n";
 import { PrimeIcons } from "@primevue/core/api";
@@ -22,7 +23,10 @@ const { t, locale } = useI18n();
 // compoenent to be rendered
 import GetUris from "@/components/GetUris.vue";
 
-const currComp = ref("");
+const compsShow = ref({
+  GetUris: false,
+  AddTorrents: false,
+});
 const menuItems = ref([
   {
     label: "Home",
@@ -37,7 +41,7 @@ const menuItems = ref([
         label: "By URIs",
         icon: PrimeIcons.LINK,
         command: () => {
-          currComp.value = GetUris;
+          compsShow.value["GetUris"] = false;
           //addUris();
         },
       },
